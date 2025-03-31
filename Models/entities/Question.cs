@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace ProStudy_NET.Models.entities
+namespace ProStudy_NET.Models.Entities
 {
     [Table("question")]
     public class Question
@@ -23,7 +23,7 @@ namespace ProStudy_NET.Models.entities
         [StringLength(255)]
         public string QuestionImage { get; set; } = string.Empty;
 
-        public long TestId { get; set; }
+        public required string TestId { get; set; }
 
         [ForeignKey("TestId")]
         public required SkillTest Test { get; set; }

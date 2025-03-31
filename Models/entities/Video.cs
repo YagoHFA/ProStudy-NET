@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace ProStudy_NET.Models.entities
+namespace ProStudy_NET.Models.Entities
 {
      [Table("videos")]
     public class Video

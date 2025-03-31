@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace ProStudy_NET.Models.entities
+namespace ProStudy_NET.Models.Entities
 {
     [Table("Category")]
     public class Category

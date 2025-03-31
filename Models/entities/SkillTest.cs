@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace ProStudy_NET.Models.entities
+namespace ProStudy_NET.Models.Entities
 {
     [Table("tests")]
     public class SkillTest
@@ -31,7 +31,7 @@ namespace ProStudy_NET.Models.entities
         [Column("badgeurl")] 
         public required string BadgeURL { get; set; }
 
-        public required List<Question> Questions { get; set; }
+        public required ICollection<Question> Questions { get; set; } = new List<Question>();
 
         public List<User>? Users { get; set; }
 

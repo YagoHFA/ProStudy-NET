@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
+using EFCore.GenericRepository.Interfaces;
+using EFCore.GenericRepository;
 
-namespace ProStudy_NET.Models.entities
+namespace ProStudy_NET.Models.Entities
 {
     [Table("Users")]
     public class User : IdentityUser<long>
@@ -37,5 +39,7 @@ namespace ProStudy_NET.Models.entities
         public override bool LockoutEnabled => false;
         public override bool TwoFactorEnabled => false;
 
+        public DateTime CreationTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public DateTime? LastUpdateTime { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 }
