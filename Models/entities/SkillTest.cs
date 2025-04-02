@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
@@ -35,7 +31,7 @@ namespace ProStudy_NET.Models.Entities
 
         public List<User>? Users { get; set; }
 
-        [InverseProperty("SkillTests")]
+        [InverseProperty("SkillTestList")]
         public required List<Category> CategoryList { get; set; }
     
     }

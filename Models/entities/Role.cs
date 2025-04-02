@@ -1,20 +1,16 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.AspNetCore.Identity;
+using ProStudy_NET.Models.Interfaces;
 
 
 namespace ProStudy_NET.Models.Entities
 {
     [Table("roles")]
-    public class Role : IdentityRole
+    public class Role : RoleDetails
     {
         [Key] 
         [Column("roleid")] 
-        public override string Id { get; set; } = Guid.NewGuid().ToString();
+        public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Required]
         [StringLength(255)]
@@ -25,9 +21,14 @@ namespace ProStudy_NET.Models.Entities
 
         public Role() : base() {}
 
-        public Role(string roleName) : base(roleName)
+        public Role(string roleName)
         {
             RoleName = roleName;
+        }
+
+        public string getPermission()
+        {
+            return this.RoleName;
         }
     }
 }
