@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProStudy_NET.Models.Entities;
 
@@ -56,6 +52,8 @@ namespace ProStudy_NET.Component.DB
                 .HasMany(p => p.ProjectsUser)
                 .WithMany(u => u.UserProjects)
                 .UsingEntity(j => j.ToTable("ProjectUsers"));
+
+                modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
         }
     }
 }
