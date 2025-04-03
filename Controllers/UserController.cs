@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProStudy_NET.Models.DTO;
 using ProStudy_NET.Services;
@@ -14,6 +15,7 @@ public class UserController: ControllerBase{
     }
 
     [HttpGet("/load/{username}")]
+    [AllowAnonymous]
     public ActionResult<LoadUserDTO> GetByUserName([FromRoute] string username) 
     {
         try

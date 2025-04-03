@@ -6,6 +6,7 @@ C:\Project\ProStudy-NET\bin\Debug\net9.0\ProStudy-NET.runtimeconfig.json
 C:\Project\ProStudy-NET\bin\Debug\net9.0\ProStudy-NET.dll
 C:\Project\ProStudy-NET\bin\Debug\net9.0\ProStudy-NET.pdb
 C:\Project\ProStudy-NET\bin\Debug\net9.0\Humanizer.dll
+C:\Project\ProStudy-NET\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Project\ProStudy-NET\bin\Debug\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 C:\Project\ProStudy-NET\bin\Debug\net9.0\Microsoft.AspNetCore.Razor.Language.dll
 C:\Project\ProStudy-NET\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -61,6 +62,8 @@ C:\Project\ProStudy-NET\bin\Debug\net9.0\Microsoft.Extensions.Primitives.dll
 C:\Project\ProStudy-NET\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
 C:\Project\ProStudy-NET\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
 C:\Project\ProStudy-NET\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+C:\Project\ProStudy-NET\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+C:\Project\ProStudy-NET\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Project\ProStudy-NET\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
 C:\Project\ProStudy-NET\bin\Debug\net9.0\Microsoft.NET.StringTools.dll
 C:\Project\ProStudy-NET\bin\Debug\net9.0\Microsoft.OpenApi.dll

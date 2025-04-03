@@ -15,28 +15,33 @@ namespace ProStudy_NET.Component.Security.Services
             this.config = config;
         }
 
-         public string GenerateToken(User user)
-    {
-        string jwtKey = config["Jwt:Key"] ?? "my-secret-key";
-        
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
-        var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-        var claims = new[]
+        public string GenerateToken(User user)
         {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Name, user.UserName),
-            new Claim(ClaimTypes.Email, user.Email)
-        };
+            string jwtKey = config["Jwt:Key"] ?? "my-secret-key";
+            
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var token = new JwtSecurityToken(
-            config["Jwt:Issuer"],
-            config["Jwt:Audience"],
-            claims,
-            expires: DateTime.UtcNow.AddHours(2),
-            signingCredentials: creds);
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName),
+                new Claim(ClaimTypes.Email, user.Email)
+            };
 
-        return new JwtSecurityTokenHandler().WriteToken(token);
-    }
+            foreach (var role in user.UserRoles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role.RoleName));
+            }
+            
+            var token = new JwtSecurityToken(
+                config["Jwt:Issuer"],
+                config["Jwt:Audience"],
+                claims,
+                expires: DateTime.UtcNow.AddHours(2),
+                signingCredentials: creds);
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
     }
 }

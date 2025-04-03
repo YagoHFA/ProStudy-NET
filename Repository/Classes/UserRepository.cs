@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using ProStudy_NET.Component.DB;
 using ProStudy_NET.Component.DB.Abstract;
 using ProStudy_NET.Models.Entities;
@@ -13,7 +14,7 @@ namespace ProStudy_NET.Repository.Classes
         }
 
         public IQueryable<User> GetByUserName(string username){
-            return context.Set<User>().Where(u => u.UserName != null && u.UserName.Equals(username));
+            return context.Set<User>().Include(u => u.UserRoles).Where(u => u.UserName != null && u.UserName.Equals(username));
         }
     }
 }

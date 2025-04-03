@@ -6,6 +6,9 @@ using Microsoft.OpenApi.Models;
 using ProStudy_NET.Services.Interfaces;
 using ProStudy_NET.Services;
 using MySqlConnector;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +33,7 @@ catch (Exception ex)
 
 builder.Services.AddScoped<iUserServices, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c => {
     c.SwaggerDoc("v1", new OpenApiInfo{
@@ -56,7 +60,29 @@ builder.Services.AddSwaggerGen(c => {
     });
 });
 
-builder.Services.AddEndpointsApiExplorer();
+
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        var jwtConfig = builder.Configuration.GetSection("Jwt");
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtConfig["Issuer"],
+            ValidAudience = jwtConfig["Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtConfig["Key"]!))
+        };
+    });
+
+    builder.Services.Configure<JwtBearerOptions>(JwtBearerDefaults.AuthenticationScheme, options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+});
 
 var app = builder.Build();
 
@@ -69,6 +95,8 @@ if(app.Environment.IsDevelopment()){
 
 }
 
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 app.Run();
