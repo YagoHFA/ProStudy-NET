@@ -3,6 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using ProStudy_NET.Repository.Classes;
 using ProStudy_NET.Repository.Interfaces;
 using Microsoft.OpenApi.Models;
+using ProStudy_NET.Services.Interfaces;
+using ProStudy_NET.Services;
+using MySqlConnector;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +16,19 @@ builder.Services.AddDbContext<ProStudyDB>(options => options.UseMySql(
     builder.Configuration.GetConnectionString("DefaultConnection"),
      ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
 )); 
+
+try
+{
+    using var connection = new MySqlConnection(builder.Configuration.GetConnectionString("DefaultConnection"));
+    connection.Open();
+    Console.WriteLine("Connected to MySQL!");
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"MySQL Connection Error: {ex.Message}");
+}
+
+builder.Services.AddScoped<iUserServices, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddSwaggerGen(c => {
