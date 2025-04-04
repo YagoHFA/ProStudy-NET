@@ -23,10 +23,18 @@ namespace ProStudy_NET.Component.DB
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.UserRoles)
-                .WithMany(r => r.Users)
-                .UsingEntity(j => j.ToTable("UserRoles"));
+            modelBuilder.Entity<UserRoles>()
+                .HasKey(ur => new { ur.UserId, ur.RoleId });
+
+            modelBuilder.Entity<UserRoles>()
+                .HasOne(ur => ur.User)
+                .WithMany(u => u.UserRoles)
+                .HasForeignKey(ur => ur.UserId);
+
+            modelBuilder.Entity<UserRoles>()
+                .HasOne(ur => ur.Role)
+                .WithMany(r => r.UserRoles)
+                .HasForeignKey(ur => ur.RoleId);
             
             modelBuilder.Entity<SkillTest>()
                 .HasMany(st => st.Questions)
