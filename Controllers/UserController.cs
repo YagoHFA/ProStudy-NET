@@ -14,13 +14,27 @@ public class UserController: ControllerBase{
         this.userServices = userServices;
     }
 
-    [HttpGet("/load/{username}")]
+    [HttpGet("/load/username={username}")]
     [AllowAnonymous]
     public ActionResult<LoadUserDTO> GetByUserName([FromRoute] string username) 
     {
         try
         {
             LoadUserDTO userDTO = userServices.GetByUserName(username);
+            return Ok(userDTO);
+        }
+        catch(ArgumentNullException ex){
+            return NotFound(ex.Message);
+        }
+        
+    }
+
+    [HttpGet("/load/id={id}")]
+    public ActionResult<LoadUserDTO> GetById([FromRoute] long id) 
+    {
+        try
+        {
+            LoadUserDTO userDTO = userServices.GetById(id);
             return Ok(userDTO);
         }
         catch(ArgumentNullException ex){
