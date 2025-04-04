@@ -1,5 +1,6 @@
+using HFA;
 using ProStudy_NET.Models.Entities;
-using ProStudy_NET.Models.Interfaces;
+
 
 
 namespace ProStudy_NET.Repository.Interfaces

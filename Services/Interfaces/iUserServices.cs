@@ -4,6 +4,7 @@ namespace ProStudy_NET.Services.Interfaces
 {
     public interface iUserServices
     {
+        LoadUserDTO GetById(long id);
         LoadUserDTO GetByUserName(string username);
     }
 }

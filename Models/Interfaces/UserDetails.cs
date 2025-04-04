@@ -11,7 +11,5 @@ namespace ProStudy_NET.Models
         public long Id {get; set;}
         public string UserName {get; set;}
         public string PasswordHash {get; set;}
-
-        ICollection<Role> GetRoles{get; set;}
     }
 }
