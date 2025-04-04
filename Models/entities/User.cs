@@ -24,11 +24,10 @@ namespace ProStudy_NET.Models.Entities
         [Required]
         public string Email { get; set; } = string.Empty;
 
-        public virtual ICollection<Role> UserRoles { get; set; } = new List<Role>();
+        public virtual ICollection<UserRoles> UserRoles { get; set; } = new List<UserRoles>();
 
         public virtual ICollection<Project> UserProjects { get; set; } = new List<Project>();
 
         public virtual ICollection<SkillTest> SkillTests { get; set; } = new List<SkillTest>();
-        public ICollection<Role> GetRoles { get => this.UserRoles ; set => this.UserRoles = value;}
     }
 }

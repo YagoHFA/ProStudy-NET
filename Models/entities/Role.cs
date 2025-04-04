@@ -17,7 +17,7 @@ namespace ProStudy_NET.Models.Entities
         [Column("rolename")]
         public string RoleName { get; set; } = string.Empty;
 
-        public List<User>? Users { get; set; }
+        public List<UserRoles>? UserRoles { get; set; }
 
         public Role() : base() {}
 
