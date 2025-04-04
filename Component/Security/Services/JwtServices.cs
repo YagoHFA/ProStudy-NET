@@ -31,7 +31,7 @@ namespace ProStudy_NET.Component.Security.Services
 
             foreach (var role in user.UserRoles)
             {
-                claims.Add(new Claim(ClaimTypes.Role, role.RoleName));
+                claims.Add(new Claim(ClaimTypes.Role, role.Role.RoleName));
             }
             
             var token = new JwtSecurityToken(
