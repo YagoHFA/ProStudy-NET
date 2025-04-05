@@ -1,12 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using ProStudy_NET.Models.Interfaces;
-
+using HFA.Auth.Interfaces;
 
 namespace ProStudy_NET.Models.Entities
 {
     [Table("roles")]
-    public class Role : RoleDetails
+    public class Role : Permission
     {
         [Key] 
         [Column("roleid")] 
@@ -15,7 +14,7 @@ namespace ProStudy_NET.Models.Entities
         [Required]
         [StringLength(255)]
         [Column("rolename")]
-        public string RoleName { get; set; } = string.Empty;
+        public string Permission { get; set; } = string.Empty;
 
         public List<UserRoles>? UserRoles { get; set; }
 
@@ -23,12 +22,12 @@ namespace ProStudy_NET.Models.Entities
 
         public Role(string roleName)
         {
-            RoleName = roleName;
+            Permission = roleName;
         }
 
         public string getPermission()
         {
-            return this.RoleName;
+            return this.Permission;
         }
     }
 }

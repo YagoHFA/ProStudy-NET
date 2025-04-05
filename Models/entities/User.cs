@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
+using HFA.Auth.Interfaces;
 
 namespace ProStudy_NET.Models.Entities
 {
@@ -18,7 +18,7 @@ namespace ProStudy_NET.Models.Entities
 
         [Column("userpassword")]
         [Required]
-        public string PasswordHash { get; set; }= string.Empty;
+        public string Password { get; set; }= string.Empty;
 
         [Column("useremail")]
         [Required]
@@ -29,5 +29,8 @@ namespace ProStudy_NET.Models.Entities
         public virtual ICollection<Project> UserProjects { get; set; } = new List<Project>();
 
         public virtual ICollection<SkillTest> SkillTests { get; set; } = new List<SkillTest>();
+        
+        [NotMapped]
+        public ICollection<Permission> Permissions { get => this.UserRoles.Select(r => (Permission)r.Role).ToList();}
     }
 }

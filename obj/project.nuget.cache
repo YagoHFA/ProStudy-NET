@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "WPfNqTLgonE=",
+  "dgSpecHash": "QzNgeHleU/k=",
   "success": true,
   "projectFilePath": "C:\\Project\\ProStudy-NET\\ProStudy-NET.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Yago_\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\Yago_\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\Yago_\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Yago_\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",

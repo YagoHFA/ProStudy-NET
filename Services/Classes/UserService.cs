@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using ProStudy_NET.Models.DTO;
 using ProStudy_NET.Models.Entities;
 using ProStudy_NET.Repository.Interfaces;
@@ -8,9 +9,40 @@ namespace ProStudy_NET.Services
     public class UserService : iUserServices
     {
         private readonly IUserRepository userRepository;
+        private readonly IRoleRepository roleRepository;
 
-        public UserService(IUserRepository userRepository){
+        public UserService(IUserRepository userRepository, IRoleRepository roleRepository){
             this.userRepository = userRepository;
+            this.roleRepository = roleRepository;
+        }
+
+        public void Create(UserRegisterDTO userDTO)
+        {
+            string encryptedPassword = BCrypt.Net.BCrypt.HashPassword(userDTO.Password);
+
+            User user = new User{
+                UserName = userDTO.Username,
+                Email = userDTO.Email,
+                Password = encryptedPassword,
+            };
+
+            Role? role = roleRepository.GetByRoleName("User");
+
+            if(role == null){
+                throw new ArgumentNullException(nameof(role), "Role not found");
+            }
+
+            UserRoles userRole = new()
+            {
+                RoleId = role.Id,
+                Role = role,
+                User = user
+            };
+
+            user.UserRoles = new Collection<UserRoles>{userRole};
+
+            userRepository.Add(user);
+
         }
 
         public LoadUserDTO GetById(long id)

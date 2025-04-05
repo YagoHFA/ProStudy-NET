@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ProStudy-NET")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f8df7c3b9f842a4b5f4bfed9dcc07be5f34e3f44")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+324aab50f737edaf9c4ff9eee072244fe3d0f980")]
 [assembly: System.Reflection.AssemblyProductAttribute("ProStudy-NET")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ProStudy-NET")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

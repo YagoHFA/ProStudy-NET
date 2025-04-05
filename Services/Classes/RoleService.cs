@@ -18,16 +18,16 @@ namespace ProStudy_NET.Services.Classes
             if(role == null){
                 throw new Exception("Role not found");
             }
-            return new RoleInfoDTO{RoleName = role.RoleName, RoleId = role.Id};
+            return new RoleInfoDTO{RoleName = role.Permission, RoleId = role.Id};
         }
 
         public RoleInfoDTO FindByRoleName(string roleName)
         {
-            Role? role = roleRepository.Find(r => r.RoleName.Equals(roleName));
+            Role? role = roleRepository.Find(r => r.Permission.Equals(roleName));
             if(role == null){
                 throw new Exception("Role not found");
             }
-           return new RoleInfoDTO {RoleName = role.RoleName, RoleId = role.Id};
+           return new RoleInfoDTO {RoleName = role.Permission, RoleId = role.Id};
         }
     }
 }

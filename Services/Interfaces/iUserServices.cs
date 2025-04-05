@@ -6,5 +6,7 @@ namespace ProStudy_NET.Services.Interfaces
     {
         LoadUserDTO GetById(long id);
         LoadUserDTO GetByUserName(string username);
+
+        void Create(UserRegisterDTO userDTO);
     }
 }

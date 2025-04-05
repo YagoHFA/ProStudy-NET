@@ -31,14 +31,14 @@ namespace ProStudy_NET.Component.Security.Services
 
             foreach (var role in user.UserRoles)
             {
-                claims.Add(new Claim(ClaimTypes.Role, role.Role.RoleName));
+                claims.Add(new Claim(ClaimTypes.Role, role.Role.Permission));
             }
             
             var token = new JwtSecurityToken(
                 config["Jwt:Issuer"],
                 config["Jwt:Audience"],
                 claims,
-                expires: DateTime.UtcNow.AddHours(2),
+                expires: DateTime.UtcNow.AddHours(8),
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
