@@ -15,7 +15,7 @@ namespace ProStudy_NET.Services
 
         public LoadUserDTO GetById(long id)
         {
-           User? userInfo = userRepository.Find(u => u.Id == id);
+           User? userInfo = userRepository.FindById(id);
            
            if(userInfo == null){
                 throw new ArgumentNullException(nameof(userInfo), "User not found");
@@ -33,7 +33,6 @@ namespace ProStudy_NET.Services
             }
 
             return new LoadUserDTO{UserName = userInfo.UserName, Email = userInfo.Email};
-
         }
     }
 }
