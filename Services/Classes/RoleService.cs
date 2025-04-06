@@ -1,3 +1,4 @@
+using ProStudy_NET.Component.DB.Unity;
 using ProStudy_NET.Models.DTO;
 using ProStudy_NET.Models.Entities;
 using ProStudy_NET.Repository.Interfaces;
@@ -7,14 +8,14 @@ namespace ProStudy_NET.Services.Classes
 {
     public class RoleService : IRoleService
     {
-        private readonly IRoleRepository roleRepository;
+        private readonly UnitWork unitWork;
 
-        public RoleService(IRoleRepository roleRepository){
-            this.roleRepository = roleRepository;
+        public RoleService(UnitWork unitWork){
+            this.unitWork = unitWork;
         }
 
         public RoleInfoDTO FindById(string id)
-        {   Role? role = roleRepository.FindById(id);
+        {   Role? role = unitWork.Roles.FindById(id);
             if(role == null){
                 throw new Exception("Role not found");
             }
@@ -23,7 +24,7 @@ namespace ProStudy_NET.Services.Classes
 
         public RoleInfoDTO FindByRoleName(string roleName)
         {
-            Role? role = roleRepository.Find(r => r.Permission.Equals(roleName));
+            Role? role = unitWork.Roles.Find(r => r.Permission.Equals(roleName));
             if(role == null){
                 throw new Exception("Role not found");
             }

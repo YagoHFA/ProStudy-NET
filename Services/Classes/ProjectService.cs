@@ -1,13 +1,14 @@
+using ProStudy_NET.Component.DB.Unity;
 using ProStudy_NET.Services.Interfaces;
 
 namespace ProStudy_NET.Services.Classes
 {
     public class ProjectService : IProjectService
     {
-        private readonly IProjectService projectService;
+        private readonly UnitWork unitWork;
 
-        public ProjectService(IProjectService projectService){
-            this.projectService = projectService;
+        public ProjectService(UnitWork unitWork){
+            this.unitWork = unitWork;
         }
     }
 }

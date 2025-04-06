@@ -1,15 +1,15 @@
-using ProStudy_NET.Repository.Interfaces;
+using ProStudy_NET.Component.DB.Unity;
 using ProStudy_NET.Services.Interfaces;
 
 namespace ProStudy_NET.Services.Classes
 {
     public class AnswerService : IAnswerService
     {
-        private readonly IAnswerRepository answerRepository;
+        private readonly UnitWork unitWork;
 
-        public AnswerService(IAnswerRepository answerRepository)
+        public AnswerService(UnitWork unitWork)
         {
-            this.answerRepository = answerRepository;
+            this.unitWork = unitWork;
         }
     }
 }

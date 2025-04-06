@@ -1,26 +1,27 @@
+using ProStudy_NET.Component.DB.Unity;
 using ProStudy_NET.Models.DTO;
 using ProStudy_NET.Models.Entities;
-using ProStudy_NET.Repository.Interfaces;
 using ProStudy_NET.Services.Interfaces;
 
 namespace ProStudy_NET.Services.Classes
 {
     public class VideoService : IVideoService
     {
-        private readonly IVideoRepository videoRepository;
+        private readonly UnitWork unitWork;
 
-        public VideoService(IVideoRepository videoRepository){
-            this.videoRepository = videoRepository;
+        public VideoService(UnitWork unitWork){
+            this.unitWork = unitWork;
         }
 
         public void DeleteById(string id)
         {
-            videoRepository.DeleteById(id);
+            unitWork.Videos.DeleteById(id);
+            unitWork.Complete();
         }
 
         public VideoInfoDTO FindById(string id)
         {
-            Video? video = videoRepository.FindById(id);
+            Video? video = unitWork.Videos.FindById(id);
             if(video == null){
                 throw new Exception("Video not found");
             }

@@ -10,14 +10,14 @@ namespace ProStudy_NET.Component.DB
         {
         }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Question> Questions { get; set; }
-        public DbSet<Answer> Answers { get; set; }
-        public DbSet<SkillTest> SkillTests { get; set; }
-        public DbSet<Role> Roles { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Project> Projects { get; set; }
-        public DbSet<Video> Videos { get; set; }
+        public required DbSet<User> Users { get; set; }
+        public required DbSet<Question> Questions { get; set; }
+        public required DbSet<Answer> Answers { get; set; }
+        public required DbSet<SkillTest> SkillTests { get; set; }
+        public required DbSet<Role> Roles { get; set; }
+        public required DbSet<Category> Categories { get; set; }
+        public required DbSet<Project> Projects { get; set; }
+        public required DbSet<Video> Videos { get; set; }
 
          protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
