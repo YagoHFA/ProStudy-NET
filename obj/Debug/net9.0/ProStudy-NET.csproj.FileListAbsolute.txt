@@ -1,8 +1,0 @@
-C:\Project\ProStudy-NET\obj\Debug\net9.0\ProStudy-NET.csproj.AssemblyReference.cache
-C:\Project\ProStudy-NET\obj\Debug\net9.0\ProStudy-NET.GeneratedMSBuildEditorConfig.editorconfig
-C:\Project\ProStudy-NET\obj\Debug\net9.0\ProStudy-NET.AssemblyInfoInputs.cache
-C:\Project\ProStudy-NET\obj\Debug\net9.0\ProStudy-NET.AssemblyInfo.cs
-C:\Project\ProStudy-NET\obj\Debug\net9.0\ProStudy-NET.csproj.CoreCompileInputs.cache
-C:\Project\ProStudy-NET\obj\Debug\net9.0\ProStudy-NET.MvcApplicationPartsAssemblyInfo.cs
-C:\Project\ProStudy-NET\obj\Debug\net9.0\ProStudy-NET.MvcApplicationPartsAssemblyInfo.cache
-C:\Project\ProStudy-NET\obj\Debug\net9.0\ProStudy-NET.sourcelink.json
