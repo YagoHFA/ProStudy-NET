@@ -1,4 +1,4 @@
-using ProStudy_NET.Models.DTO;
+using ProStudy_NET.Models.DTO.RoleDTO;
 
 namespace ProStudy_NET.Services.Interfaces
 {

@@ -1,7 +1,7 @@
 using ProStudy_NET.Component.DB.Unity;
-using ProStudy_NET.Models.DTO;
+using ProStudy_NET.Component.Exceptions.Models;
+using ProStudy_NET.Models.DTO.RoleDTO;
 using ProStudy_NET.Models.Entities;
-using ProStudy_NET.Repository.Interfaces;
 using ProStudy_NET.Services.Interfaces;
 
 namespace ProStudy_NET.Services.Classes
@@ -17,7 +17,7 @@ namespace ProStudy_NET.Services.Classes
         public RoleInfoDTO FindById(string id)
         {   Role? role = unitWork.Roles.FindById(id);
             if(role == null){
-                throw new Exception("Role not found");
+                throw new NotFoundException("Role not found");
             }
             return new RoleInfoDTO{RoleName = role.Permission, RoleId = role.Id};
         }
@@ -26,7 +26,7 @@ namespace ProStudy_NET.Services.Classes
         {
             Role? role = unitWork.Roles.Find(r => r.Permission.Equals(roleName));
             if(role == null){
-                throw new Exception("Role not found");
+                throw new NotFoundException("Role not found");
             }
            return new RoleInfoDTO {RoleName = role.Permission, RoleId = role.Id};
         }

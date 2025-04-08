@@ -1,5 +1,5 @@
 using ProStudy_NET.Component.DB.Unity;
-using ProStudy_NET.Models.DTO;
+using ProStudy_NET.Models.DTO.VideoDTO;
 using ProStudy_NET.Models.Entities;
 using ProStudy_NET.Services.Interfaces;
 
@@ -19,13 +19,13 @@ namespace ProStudy_NET.Services.Classes
             unitWork.Complete();
         }
 
-        public VideoInfoDTO FindById(string id)
+        public VideoMinDTO FindById(string id)
         {
             Video? video = unitWork.Videos.FindById(id);
             if(video == null){
                 throw new Exception("Video not found");
             }
-            return new VideoInfoDTO{videoTitle = video.VideoTitle, videoId = video.VideoId, thumb = video.VideoThumbnail};
+            return new VideoMinDTO(video);
         }
     }
 }

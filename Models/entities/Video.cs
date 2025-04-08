@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace ProStudy_NET.Models.Entities
 {
-     [Table("videos")]
+    [Table("videos")]
     public class Video
     {
         [Key]

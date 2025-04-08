@@ -1,5 +1,4 @@
 using HFA.DB.Interfaces;
-using ProStudy_NET.Repository.Classes;
 using ProStudy_NET.Repository.Interfaces;
 
 namespace ProStudy_NET.Component.DB.Unity
@@ -17,18 +16,28 @@ namespace ProStudy_NET.Component.DB.Unity
         public IQuestionRepository Questions { get; }
         public IAnswerRepository Answers { get; }
 
-        public UnitWork(ProStudyDB context){
+        public UnitWork(ProStudyDB context,
+                        IUserRepository userRepository,
+                        IRoleRepository roleRepository,
+                        ICategoryRepository categoryRepository,
+                        IProjectRepository projectRepository,
+                        IVideoRepository videoRepository,
+                        ITestRepository testRepository,
+                        IQuestionRepository questionRepository,
+                        IAnswerRepository answerRepository)
+        {
             this.context = context;
-            Users = new UserRepository(context);
-            Roles = new RoleRepository(context);
-            Categories = new CategoryRepository(context);
-            Products = new ProjectRepository(context);
-            Videos = new VideoRepository(context);
-            Tests = new TestRepository(context);
-            Questions = new QuestionRepository(context);
-            Answers = new AnswerRepository(context);
-        
+
+            Users = userRepository;
+            Roles = roleRepository;
+            Categories = categoryRepository;
+            Products = projectRepository;
+            Videos = videoRepository;
+            Tests = testRepository;
+            Questions = questionRepository;
+            Answers = answerRepository;
         }
+
         public int Complete()
         {
             return context.SaveChanges();

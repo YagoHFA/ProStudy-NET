@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using ProStudy_NET.Component.DB.Unity;
 using ProStudy_NET.Component.Exceptions.Models;
-using ProStudy_NET.Models.DTO;
+using ProStudy_NET.Models.DTO.UserDTO;
 using ProStudy_NET.Models.Entities;
 using ProStudy_NET.Services.Interfaces;
 
