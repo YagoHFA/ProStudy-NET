@@ -12,7 +12,7 @@ namespace ProStudy_NET.Repository.Classes
 
         public Role? GetByRoleName(string roleName)
         {
-            return context.Set<Role>().FirstOrDefault(r => r.Permission.Equals(roleName));
+            return dbSet.FirstOrDefault(r => r.Permission.Equals(roleName));
         }
     }
 }

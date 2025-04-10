@@ -9,6 +9,8 @@ namespace ProStudy_NET.Repository.Interfaces
 {
     public interface ICategoryRepository : IRepository<Category>
     {
-        
+        IQueryable<Category> findVideosByCategory(string categoryName);
+
+        IQueryable<Category> findTestByCategory(string categoryName);
     }
 }

@@ -4,7 +4,7 @@ namespace ProStudy_NET.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class RoleController
+    public class RoleController : ControllerBase
     {
         
     }

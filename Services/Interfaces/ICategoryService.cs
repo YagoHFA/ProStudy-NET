@@ -5,10 +5,18 @@ namespace ProStudy_NET.Services.Interfaces
 {
     public interface ICategoryService
     {
-        IQueryable<Category> GetAllVideos();
+        IQueryable<CategoryVideoDTO> GetAllVideos();
 
-        IQueryable<Category> GetAllTests();
+        IQueryable<CategoryTestDTO> GetAllTests();
 
         IQueryable<CategoryMinDTO> GetAllCategoryName();
+
+        void AddCategory(CategoryMinDTO category);
+
+        void DeleteCategory(int id);
+
+        IQueryable<CategoryVideoDTO> findVideoByCategory(string categoryName);
+
+        IQueryable<CategoryTestDTO> findTestByCategory(string categoryName);
     }
 }

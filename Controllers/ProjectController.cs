@@ -4,7 +4,7 @@ namespace ProStudy_NET.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProjectController
+    public class ProjectController : ControllerBase
     {
         
     }

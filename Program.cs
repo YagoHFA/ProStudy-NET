@@ -9,11 +9,12 @@ using MySqlConnector;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using ProStudy_NET.Component.DB.Unity;
+using ProStudy_NET.Services.Classes;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddDbContext<ProStudyDB>(options => options.UseMySql(
     builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -31,13 +32,46 @@ catch (Exception ex)
     Console.WriteLine($"MySQL Connection Error: {ex.Message}");
 }
 
+//User
 builder.Services.AddScoped<iUserServices, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+//Video
+builder.Services.AddScoped<IVideoService, VideoService>();
+builder.Services.AddScoped<IVideoRepository, VideoRepository>();
+
+//Category
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+//Question
+builder.Services.AddScoped<IQuestionService, QuestionService>();
+builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+
+//Answer
+builder.Services.AddScoped<IAnswerService, AnswerService>();
+builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
+
+//Project
+builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+
+//Role
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+
+//Test
+builder.Services.AddScoped<ITestService, TestService>();
+builder.Services.AddScoped<ITestRepository, TestRepository>();
+
+builder.Services.AddScoped<UnitWork>();
+
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c => {
     c.SwaggerDoc("v1", new OpenApiInfo{
-        Title = "ProStudy-NET API Documentation",
+        Title = "ProStudy-NET API",
+        Description = "API for leaning technology skills",
         Version = "1.0.0"
     });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme{

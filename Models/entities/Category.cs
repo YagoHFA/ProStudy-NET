@@ -8,12 +8,12 @@ namespace ProStudy_NET.Models.Entities
     {
         [Key] 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Column("categoryId")]
+        [Column("category_id")]
         public long CategoryId { get; set; }
 
         [Required]
         [StringLength(255)]
-        [Column("categoryName")]
+        [Column("category_name")]
         public required string CategoryName { get; set; }
 
         public List<Video>? VideoList { get; set; }
