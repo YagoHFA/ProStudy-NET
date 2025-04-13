@@ -40,7 +40,7 @@ namespace ProStudy_NET.Controllers
             }
         }
 
-        [HttpGet("/list/categories")]
+        [HttpGet("/list")]
         [AllowAnonymous]
         public ActionResult<List<CategoryMinDTO>> listCategories(){
             try{
@@ -82,6 +82,16 @@ namespace ProStudy_NET.Controllers
             try{
                 categoryService.AddCategory(createCategory);
                 return Ok("Category created successfully");
+            }
+            catch(Exception e){
+                return BadRequest(e.Message);
+            }
+        }
+
+        public ActionResult deleteCategory(string categoryName){
+            try{
+                categoryService.DeleteCategory(categoryName);
+                return Ok("Category deleted successfully");
             }
             catch(Exception e){
                 return BadRequest(e.Message);

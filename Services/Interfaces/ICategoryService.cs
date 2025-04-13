@@ -15,6 +15,8 @@ namespace ProStudy_NET.Services.Interfaces
 
         void DeleteCategory(int id);
 
+        void DeleteCategory(string categoryName);
+
         IQueryable<CategoryVideoDTO> findVideoByCategory(string categoryName);
 
         IQueryable<CategoryTestDTO> findTestByCategory(string categoryName);

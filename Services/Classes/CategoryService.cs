@@ -27,9 +27,18 @@ namespace ProStudy_NET.Services.Classes
             unitWork.Complete();
         }
 
+        public void DeleteCategory(string categoryName)
+        {
+            unitWork.Categories.DeleteWhere(c => c.CategoryName.Equals(categoryName));
+        }
+
         public IQueryable<CategoryTestDTO> findTestByCategory(string categoryName)
         {
-            throw new NotImplementedException();
+            IQueryable<Category> categories = unitWork.Categories.findTestByCategory(categoryName);
+            if(categories == null){
+                throw new NotFoundException($"category '{categoryName}' not found");
+            }
+            return categories.Select(c => new CategoryTestDTO(c));
         }
 
         public IQueryable<CategoryVideoDTO> findVideoByCategory(string categoryName)
