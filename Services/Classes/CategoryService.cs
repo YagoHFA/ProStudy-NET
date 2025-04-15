@@ -27,9 +27,14 @@ namespace ProStudy_NET.Services.Classes
             unitWork.Complete();
         }
 
-        public void DeleteCategory(string categoryName)
+        public void DeleteCategory(CategoryMinDTO category)
         {
-            unitWork.Categories.DeleteWhere(c => c.CategoryName.Equals(categoryName));
+            Category? categoryDB = unitWork.Categories.Find(c => c.CategoryName.Equals(category.name));
+
+            if(categoryDB == null){
+                throw new NotFoundException($"Category to delete '{category.name}' is not found in database");
+            }
+            unitWork.Categories.Delete(categoryDB);
         }
 
         public IQueryable<CategoryTestDTO> findTestByCategory(string categoryName)
@@ -63,7 +68,7 @@ namespace ProStudy_NET.Services.Classes
 
         public IQueryable<CategoryTestDTO> GetAllTests()
         {
-            IQueryable<Category>? categories = unitWork.Categories.FindAll();
+            IQueryable<Category>? categories = unitWork.Categories.findeAllTests();
             if(categories == null){
                 throw new NotFoundException("No categories have been registered.");
             }
@@ -72,7 +77,7 @@ namespace ProStudy_NET.Services.Classes
 
         public IQueryable<CategoryVideoDTO> GetAllVideos()
         {
-            IQueryable<Category>? categories = unitWork.Categories.FindAll();
+            IQueryable<Category>? categories = unitWork.Categories.findAllVideos();
             if(categories == null){
                 throw new NotFoundException("No categories have been registered.");
             }

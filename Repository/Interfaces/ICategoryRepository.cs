@@ -12,5 +12,9 @@ namespace ProStudy_NET.Repository.Interfaces
         IQueryable<Category> findVideosByCategory(string categoryName);
 
         IQueryable<Category> findTestByCategory(string categoryName);
+
+        IQueryable<Category> findAllVideos();
+
+        IQueryable<Category> findeAllTests();
     }
 }
