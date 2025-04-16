@@ -5,6 +5,9 @@ namespace ProStudy_NET.Repository.Interfaces
 {
     public interface IUserRepository : IRepository<User>
     {
-        IQueryable<User> GetByUserName(string username);
+        User? GetByUserName(string username);
+
+        User? GetByEmail(string email);
+
     }
 }

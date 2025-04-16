@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ProStudy_NET.Component.Exceptions.Models;
+using ProStudy_NET.Component.Security.Services;
 using ProStudy_NET.Models.DTO.UserDTO;
 using ProStudy_NET.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
@@ -79,6 +81,32 @@ public class UserController: ControllerBase{
         try{
             userServices.Create(userRegister);
             return Ok("User registered successfully.");
+        }
+        catch(Exception ex){
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPost("/login")]
+    [AllowAnonymous]
+    [SwaggerOperation(
+        Summary = "Login",
+        Description = "Login in the system"
+    )]
+    [SwaggerResponse(StatusCodes.Status200OK, "Login successfully")]
+    [SwaggerResponse(StatusCodes.Status401Unauthorized, "Invalid credentials")]
+    [SwaggerResponse(StatusCodes.Status404NotFound, "User not found")]
+    [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid user data")]
+    public ActionResult<string> Login([FromBody]UserLoginDTO userLogin){
+        try{
+            string token = userServices.Login(userLogin);
+            return Ok(token);
+        }
+        catch(UnauthorizedException ex){
+            return Unauthorized(ex.Message);
+        }
+        catch(NotFoundException ex){
+            return NotFound(ex.Message);
         }
         catch(Exception ex){
             return BadRequest(ex.Message);

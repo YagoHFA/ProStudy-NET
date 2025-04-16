@@ -2,6 +2,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using ProStudy_NET.Models.DTO.UserDTO;
 using ProStudy_NET.Models.Entities;
 
 namespace ProStudy_NET.Component.Security.Services
@@ -15,7 +16,7 @@ namespace ProStudy_NET.Component.Security.Services
             this.config = config;
         }
 
-        public string GenerateToken(User user)
+        public string GenerateToken(LoadUserDTO user)
         {
             string jwtKey = config["Jwt:Key"] ?? "my-secret-key";
             
@@ -29,9 +30,9 @@ namespace ProStudy_NET.Component.Security.Services
                 new Claim(ClaimTypes.Email, user.Email)
             };
 
-            foreach (var role in user.UserRoles)
+            foreach (var role in user.roleInfos)
             {
-                claims.Add(new Claim(ClaimTypes.Role, role.Role.Permission));
+                claims.Add(new Claim(ClaimTypes.Role, role.id));
             }
             
             var token = new JwtSecurityToken(

@@ -1,6 +1,8 @@
 using System.Collections.ObjectModel;
 using ProStudy_NET.Component.DB.Unity;
 using ProStudy_NET.Component.Exceptions.Models;
+using ProStudy_NET.Component.Security.Services;
+using ProStudy_NET.Models.DTO.RoleDTO;
 using ProStudy_NET.Models.DTO.UserDTO;
 using ProStudy_NET.Models.Entities;
 using ProStudy_NET.Services.Interfaces;
@@ -10,9 +12,11 @@ namespace ProStudy_NET.Services
     public class UserService : iUserServices
     {
         private readonly UnitWork unitWork;
+        private readonly JwtServices jwtServices;
 
-        public UserService(UnitWork unitWork){
+        public UserService(UnitWork unitWork, JwtServices jwtServices){
             this.unitWork = unitWork;
+            this.jwtServices = jwtServices;
         }
 
         public void Create(UserRegisterDTO userDTO)
@@ -62,13 +66,31 @@ namespace ProStudy_NET.Services
 
         public LoadUserDTO GetByUserName(string username)
         {
-            User? userInfo = unitWork.Users.GetByUserName(username).FirstOrDefault();
+            User? userInfo = unitWork.Users.GetByUserName(username);
 
             if(userInfo == null){
                 throw new ArgumentNullException(nameof(userInfo), "User not found");
             }
 
             return new LoadUserDTO{UserName = userInfo.UserName, Email = userInfo.Email};
+        }
+
+        public string Login(UserLoginDTO userDTO)
+        {
+            User? user = unitWork.Users.GetByUserName(userDTO.login);
+            if(user == null){
+                user = unitWork.Users.GetByEmail(userDTO.login);
+                if(user == null){
+                    throw new NotFoundException("User not found");
+                }
+            }
+            bool isValid = BCrypt.Net.BCrypt.Verify(userDTO.password, user.Password);
+            
+            if(!isValid){
+                throw new UnauthorizedException("Invalid password");
+            }
+            LoadUserDTO userInfo = new LoadUserDTO{UserName = user.UserName, Email = user.Email, Id = user.Id, roleInfos = user.UserRoles.Select(r => new RolePermissionDTO{id = r.RoleId}).ToList()};
+            return jwtServices.GenerateToken(userInfo);
         }
     }
 }

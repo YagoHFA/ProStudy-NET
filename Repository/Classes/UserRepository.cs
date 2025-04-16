@@ -12,8 +12,13 @@ namespace ProStudy_NET.Repository.Classes
         {
         }
 
-        public IQueryable<User> GetByUserName(string username){
-            return dbSet.Include(u => u.UserRoles).Where(u => u.UserName != null && u.UserName.Equals(username));
+        public User? GetByEmail(string email)
+        {
+            return dbSet.Include(u => u.UserRoles).Where(u => u.Email != null && u.Email.Equals(email)).FirstOrDefault();
+        }
+
+        public User? GetByUserName(string username){
+            return dbSet.Include(u => u.UserRoles).Where(u => u.UserName != null && u.UserName.Equals(username)).FirstOrDefault();
         }
     }
 }
