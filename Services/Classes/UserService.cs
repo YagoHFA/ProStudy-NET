@@ -55,7 +55,7 @@ namespace ProStudy_NET.Services
 
         public LoadUserDTO GetById(long id)
         {
-           User? userInfo = unitWork.Users.FindById(id);
+           User? userInfo = unitWork.Users.FindById(new object[] { id } , u => u.UserRoles);
            
            if(userInfo == null){
                 throw new ArgumentNullException(nameof(userInfo), "User not found");

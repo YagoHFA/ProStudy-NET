@@ -1,3 +1,4 @@
+using System.Configuration;
 using HFA;
 using ProStudy_NET.Models.Entities;
 
@@ -7,7 +8,7 @@ namespace ProStudy_NET.Repository.Interfaces
     {
         User? GetByUserName(string username);
 
-        User? GetByEmail(string email);
+        User? GetByEmail(string email); 
 
     }
 }

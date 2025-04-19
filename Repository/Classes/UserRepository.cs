@@ -14,11 +14,11 @@ namespace ProStudy_NET.Repository.Classes
 
         public User? GetByEmail(string email)
         {
-            return dbSet.Include(u => u.UserRoles).Where(u => u.Email != null && u.Email.Equals(email)).FirstOrDefault();
+            return dbSet.Include(u => u.UserRoles).Include(u => u.UserProjects).Where(u => u.Email != null && u.Email.Equals(email)).FirstOrDefault();
         }
 
         public User? GetByUserName(string username){
-            return dbSet.Include(u => u.UserRoles).Where(u => u.UserName != null && u.UserName.Equals(username)).FirstOrDefault();
+            return dbSet.Include(u => u.UserRoles).Include(u => u.UserProjects).Where(u => u.UserName != null && u.UserName.Equals(username)).FirstOrDefault();
         }
     }
 }

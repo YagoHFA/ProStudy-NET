@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ProStudy_NET.Component.DB.Unity;
 using ProStudy_NET.Services.Classes;
+using ProStudy_NET.Component.Security.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -66,6 +67,8 @@ builder.Services.AddScoped<ITestRepository, TestRepository>();
 
 builder.Services.AddScoped<UnitWork>();
 
+builder.Services.AddScoped<JwtServices>();
+
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c => {
@@ -92,6 +95,8 @@ builder.Services.AddSwaggerGen(c => {
             new string[]{}
         }
     });
+
+    c.EnableAnnotations();
 });
 
 

@@ -8,6 +8,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 [ApiController]
 [Route("[controller]")]
+[SwaggerTag("Endpoints for managing User operations")]
 public class UserController: ControllerBase{
 
     private readonly iUserServices userServices;
