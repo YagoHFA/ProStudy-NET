@@ -17,7 +17,9 @@ jobs:
 
       # 🆕 Clonar o repositório HFA-NET
       - name: Clone HFA-NET project
-        run: git clone --branch main https://github.com/YagoHFA/HFA-NET.git HFA
+        run: |
+              cd ..
+              git clone --branch main https://github.com/YagoHFA/HFA-NET.git HFA
 
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
