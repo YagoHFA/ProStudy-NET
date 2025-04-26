@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Linq.Expressions;
 using ProStudy_NET.Component.DB.Unity;
 using ProStudy_NET.Component.Exceptions.Models;
 using ProStudy_NET.Component.Security.Services;
@@ -55,9 +56,12 @@ namespace ProStudy_NET.Services
 
         public LoadUserDTO GetById(long id)
         {
-           User? userInfo = unitWork.Users.FindById(new object[] { id } , u => u.UserRoles);
+           User? userInfo = unitWork.Users.FindById(new { id },
+            (Expression<Func<User, object>>)(u => u.SkillTests),
+            (Expression<Func<User, object>>)(u => u.UserProjects));
            
-           if(userInfo == null){
+           if (userInfo == null)
+            {
                 throw new ArgumentNullException(nameof(userInfo), "User not found");
             }
 
@@ -72,7 +76,7 @@ namespace ProStudy_NET.Services
                 throw new ArgumentNullException(nameof(userInfo), "User not found");
             }
 
-            return new LoadUserDTO{UserName = userInfo.UserName, Email = userInfo.Email};
+            return new LoadUserDTO{UserName = userInfo.UserName, Email = userInfo.Email, Id = userInfo.Id};
         }
 
         public string Login(UserLoginDTO userDTO)
@@ -89,7 +93,7 @@ namespace ProStudy_NET.Services
             if(!isValid){
                 throw new UnauthorizedException("Invalid password");
             }
-            LoadUserDTO userInfo = new LoadUserDTO{UserName = user.UserName, Email = user.Email, Id = user.Id, roleInfos = user.UserRoles.Select(r => new RolePermissionDTO{id = r.RoleId}).ToList()};
+            LoadUserDTO userInfo = new LoadUserDTO{UserName = user.UserName, Email = user.Email, Id = user.Id, RoleInfos = user.UserRoles.Select(r => new RolePermissionDTO{id = r.RoleId}).ToList()};
             return jwtServices.GenerateToken(userInfo);
         }
     }

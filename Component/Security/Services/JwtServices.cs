@@ -30,7 +30,7 @@ namespace ProStudy_NET.Component.Security.Services
                 new Claim(ClaimTypes.Email, user.Email)
             };
 
-            foreach (var role in user.roleInfos)
+            foreach (var role in user.RoleInfos)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role.id));
             }

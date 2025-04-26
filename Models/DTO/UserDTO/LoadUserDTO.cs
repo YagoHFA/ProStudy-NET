@@ -11,8 +11,8 @@ namespace ProStudy_NET.Models.DTO.UserDTO
     {
         public long Id { get; set; }
         public required string UserName { get; set; }
-        public required string Email;
-        public List<RolePermissionDTO> roleInfos = new List<RolePermissionDTO>();
-        public List<ProjectMinViewDTO> projects = new List<ProjectMinViewDTO>();
+        public required string Email { get; set; }
+        public List<RolePermissionDTO> RoleInfos { get; set; } = new List<RolePermissionDTO>();
+        public List<ProjectMinViewDTO> Projects { get; set; } = new List<ProjectMinViewDTO>();
     }
 }
