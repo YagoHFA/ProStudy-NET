@@ -76,7 +76,11 @@ namespace ProStudy_NET.Services
                 throw new ArgumentNullException(nameof(userInfo), "User not found");
             }
 
-            return new LoadUserDTO{UserName = userInfo.UserName, Email = userInfo.Email, Id = userInfo.Id};
+            return new LoadUserDTO { UserName = userInfo.UserName,
+                Email = userInfo.Email,
+                Id = userInfo.Id,
+                RoleInfos = userInfo.UserRoles.Select(r => new RolePermissionDTO{id = r.RoleId}).ToList()
+            };
         }
 
         public string Login(UserLoginDTO userDTO)

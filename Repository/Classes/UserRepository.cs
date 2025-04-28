@@ -22,8 +22,10 @@ namespace ProStudy_NET.Repository.Classes
         public User? GetByUserName(string username)
         {
             return dbSet.Include(u => u.UserRoles)
+                            .ThenInclude(r => r.Role)
                             .Include(u => u.SkillTests)
                             .Include(u => u.UserProjects)
+                            .AsSplitQuery()
                             .Where(u => u.UserName != null && u.UserName.Equals(username)).FirstOrDefault();
         }
 

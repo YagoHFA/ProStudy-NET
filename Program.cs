@@ -12,25 +12,53 @@ using System.Text;
 using ProStudy_NET.Component.DB.Unity;
 using ProStudy_NET.Services.Classes;
 using ProStudy_NET.Component.Security.Services;
+using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
+using Microsoft.Data.SqlClient;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<ProStudyDB>(options => options.UseMySql(
-    builder.Configuration.GetConnectionString("DefaultConnection"),
-     ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))),
-     ServiceLifetime.Scoped); 
+string databaseType = builder.Configuration.GetValue<string>("DatabaseSettings:DatabaseType")!;
 
-try
+if (databaseType.Equals("MySQL"))
 {
-    using var connection = new MySqlConnection(builder.Configuration.GetConnectionString("DefaultConnection"));
-    connection.Open();
-    Console.WriteLine("Connected to MySQL!");
+    builder.Services.AddDbContext<ProStudyDB>(options => options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))),
+         ServiceLifetime.Scoped);
+
+    try
+    {
+        using var connection = new MySqlConnection(builder.Configuration.GetConnectionString("DefaultConnection"));
+        connection.Open();
+        Console.WriteLine("Connected to MySQL!");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"MySQL Connection Error: {ex.Message}");
+    }
 }
-catch (Exception ex)
+else if (databaseType.Equals("MSSQL"))
 {
-    Console.WriteLine($"MySQL Connection Error: {ex.Message}");
+    builder.Services.AddDbContext<ProStudyDB>(options => options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")),
+        ServiceLifetime.Scoped);
+
+    try
+    {
+        using var connection = new SqlConnection(builder.Configuration.GetConnectionString("DefaultConnection"));
+        connection.Open();
+        Console.WriteLine("Connected to MSSQL!");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"MSSQL Connection Error: {ex.Message}");
+    }
+}
+else
+{
+    Console.WriteLine("Invalid database type specified in appsettings.json");
 }
 
 //User
