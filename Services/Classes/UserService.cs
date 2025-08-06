@@ -3,7 +3,9 @@ using System.Linq.Expressions;
 using ProStudy_NET.Component.DB.Unity;
 using ProStudy_NET.Component.Exceptions.Models;
 using ProStudy_NET.Component.Security.Services;
+using ProStudy_NET.Models.DTO.ProjectDTO;
 using ProStudy_NET.Models.DTO.RoleDTO;
+using ProStudy_NET.Models.DTO.TestDTO;
 using ProStudy_NET.Models.DTO.UserDTO;
 using ProStudy_NET.Models.Entities;
 using ProStudy_NET.Services.Interfaces;
@@ -76,10 +78,14 @@ namespace ProStudy_NET.Services
                 throw new ArgumentNullException(nameof(userInfo), "User not found");
             }
 
-            return new LoadUserDTO { UserName = userInfo.UserName,
+            return new LoadUserDTO
+            {
+                UserName = userInfo.UserName,
                 Email = userInfo.Email,
                 Id = userInfo.Id,
-                RoleInfos = userInfo.UserRoles.Select(r => new RolePermissionDTO{id = r.RoleId}).ToList()
+                RoleInfos = userInfo.UserRoles.Select(r => new RolePermissionDTO { id = r.RoleId }).ToList(),
+                Skills = userInfo.SkillTests.Select(s => new TestInfoDTO { Id = s.TestId, Name = s.TestTitle }).ToList(),
+                Projects = userInfo.UserProjects.Select(p => new ProjectMinViewDTO { projectName = p.ProjectName }).ToList()
             };
         }
 

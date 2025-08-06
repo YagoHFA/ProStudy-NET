@@ -12,27 +12,36 @@ namespace ProStudy_NET.Repository.Classes
         {
         }
 
+        /// <summary>
+        /// Get all user Info by the given user's email.
+        /// </summary>
+        /// <param name="email">The email used to perform the search</param>
+        /// <returns>Returns a user entity with all information if found, or null if not.</returns>
         public User? GetByEmail(string email)
         {
             return dbSet.Include(u => u.UserRoles)
+                            .Include(u => u.UserRoles)
+                            .ThenInclude(r => r.Role)
+                            .Include(u => u.SkillTests)
                             .Include(u => u.UserProjects)
+                            .AsSplitQuery()
                             .Where(u => u.Email != null && u.Email.Equals(email)).FirstOrDefault();
         }
 
+        /// <summary>
+        /// Get all User Info by given UserName
+        /// </summary>
+        /// <param name="username">The username used to perform the search</param>
+        /// <returns>Returns a user entity with all information if found, or null if not.</returns>
         public User? GetByUserName(string username)
         {
-            return dbSet.Include(u => u.UserRoles)
+            return dbSet.AsNoTracking()
+                            .Include(u => u.UserRoles)
                             .ThenInclude(r => r.Role)
                             .Include(u => u.SkillTests)
                             .Include(u => u.UserProjects)
                             .AsSplitQuery()
                             .Where(u => u.UserName != null && u.UserName.Equals(username)).FirstOrDefault();
-        }
-
-        public User? GetByUserNameOrEmail(string usernameOrEmail)
-        {
-            var key = context.Model.FindEntityType(typeof(User))!.FindPrimaryKey()!.Properties[0];
-            return new User();
         }
     }
 }

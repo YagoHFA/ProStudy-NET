@@ -12,13 +12,15 @@ using System.Text;
 using ProStudy_NET.Component.DB.Unity;
 using ProStudy_NET.Services.Classes;
 using ProStudy_NET.Component.Security.Services;
-using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
 using Microsoft.Data.SqlClient;
 
+
+DotNetEnv.Env.Load();
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
+builder.Configuration.AddEnvironmentVariables();
 string databaseType = builder.Configuration.GetValue<string>("DatabaseSettings:DatabaseType")!;
 
 if (databaseType.Equals("MySQL"))
@@ -32,7 +34,6 @@ if (databaseType.Equals("MySQL"))
     {
         using var connection = new MySqlConnection(builder.Configuration.GetConnectionString("DefaultConnection"));
         connection.Open();
-        Console.WriteLine("Connected to MySQL!");
     }
     catch (Exception ex)
     {
@@ -49,7 +50,6 @@ else if (databaseType.Equals("MSSQL"))
     {
         using var connection = new SqlConnection(builder.Configuration.GetConnectionString("DefaultConnection"));
         connection.Open();
-        Console.WriteLine("Connected to MSSQL!");
     }
     catch (Exception ex)
     {
