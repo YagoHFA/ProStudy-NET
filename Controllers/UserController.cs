@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ProStudy_NET.Component.Exceptions.Models;
-using ProStudy_NET.Component.Security.Services;
 using ProStudy_NET.Models.DTO.UserDTO;
 using ProStudy_NET.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;

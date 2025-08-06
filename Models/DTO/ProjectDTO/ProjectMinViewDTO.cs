@@ -10,19 +10,11 @@ namespace ProStudy_NET.Models.DTO.ProjectDTO
     public class ProjectMinViewDTO
     {
         public required string projectName { get; set; }
-        public string? projectDescription { get; set; }
-        public List<CategoryMinDTO> tools { get; set; } = new List<CategoryMinDTO>();
-        public string? projectUrl { get; set; } = string.Empty;
 
-        public ProjectMinViewDTO(Project project)
-        {
-            projectName = project.ProjectName;
-            projectDescription = project.ProjectDescription;
-            projectUrl = project.ProjectURL;
-            foreach (var tool in project.Tools)
-            {
-                tools.Add(new CategoryMinDTO(tool));
-            }
-        }
+        public string? projectDescription { get; set; }
+
+        public List<CategoryMinDTO> tools { get; set; } = new List<CategoryMinDTO>();
+
+        public string? projectUrl { get; set; } = string.Empty;
     }
 }
