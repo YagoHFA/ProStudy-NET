@@ -4,8 +4,13 @@ namespace ProStudy_NET.Services.Interfaces
 {
     public interface IVideoService
     {
-        VideoMinDTO FindById(string id);
+        VideoMinDTO FindMinById(string id);
 
         void DeleteById(string id);
+
+        VideoMinDTO FindById(string id);
+        VideoInfoDTO FindByName(string videoName);
+
+        void Save(VideoCadDTO videoCadDTO);
     }
 }

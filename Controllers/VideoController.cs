@@ -20,12 +20,12 @@ namespace ProStudy_NET.Controllers
             this.videoService = videoService;
         }
 
-        [HttpGet("{videoId}")]
+        [HttpGet("/find/{videoId}")]
         [AllowAnonymous]
         [SwaggerOperation]
         [SwaggerResponse(200, "Video info by given id.", typeof(VideoMinDTO))]
         [SwaggerResponse(404, "Not Found")]
-        public ActionResult FindById(string videoId)
+        public ActionResult<VideoMinDTO> FindById(string videoId)
         {
             try
             {
@@ -35,6 +35,35 @@ namespace ProStudy_NET.Controllers
             catch (NotFoundException e)
             {
                 return NotFound(e.Message);
+            }
+        }
+
+        [HttpGet("/find/name={videoName}")]
+        public ActionResult<VideoInfoDTO> FindByVideoName(string videoName)
+        {
+            try
+            {
+                VideoInfoDTO videoInfo = videoService.FindByName(videoName);
+                return Ok(videoInfo);
+            }
+            catch (NotFoundException e)
+            {
+                return NotFound(e.Message);
+            }
+        }
+
+        [HttpPost("save")]
+
+        public ActionResult<string> SaveVideo([FromBody] VideoCadDTO videoCadDTO)
+        {
+            try
+            {
+                videoService.Save(videoCadDTO);
+                return Created();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
     }

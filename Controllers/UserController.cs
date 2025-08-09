@@ -77,7 +77,7 @@ public class UserController: ControllerBase{
     )]
     [SwaggerResponse(StatusCodes.Status201Created, "User registered successfully")]
     [SwaggerResponse(StatusCodes.Status400BadRequest, "Invalid user data")]
-    public ActionResult UserRegister(UserRegisterDTO userRegister){
+    public ActionResult<string> UserRegister(UserRegisterDTO userRegister){
         try{
             userServices.Create(userRegister);
             return Ok("User registered successfully.");

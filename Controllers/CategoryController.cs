@@ -117,7 +117,7 @@ namespace ProStudy_NET.Controllers
         )]
         [SwaggerResponse(StatusCodes.Status201Created, "Category created successfully.")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Bad request.")]
-        public ActionResult createCategory([FromBody] CategoryMinDTO createCategory){
+        public ActionResult<string> createCategory([FromBody] CategoryMinDTO createCategory){
             try{
                 categoryService.AddCategory(createCategory);
                 return Ok("Category created successfully");
@@ -135,7 +135,7 @@ namespace ProStudy_NET.Controllers
         )]
         [SwaggerResponse(StatusCodes.Status200OK, "Category deleted successfully.")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Bad request.")]
-        public ActionResult deleteCategory([FromBody] CategoryMinDTO categoryMin){
+        public ActionResult<string> deleteCategory([FromBody] CategoryMinDTO categoryMin){
             try{
                 categoryService.DeleteCategory(categoryMin);
                 return Ok("Category deleted successfully");
