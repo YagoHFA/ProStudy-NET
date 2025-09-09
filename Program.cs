@@ -1,18 +1,11 @@
 ﻿using ProStudy_NET.Component.DB;
 using Microsoft.EntityFrameworkCore;
-using ProStudy_NET.Repository.Classes;
-using ProStudy_NET.Repository.Interfaces;
 using Microsoft.OpenApi.Models;
-using ProStudy_NET.Services.Interfaces;
-using ProStudy_NET.Services;
-using MySqlConnector;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ProStudy_NET.Component.DB.Unity;
-using ProStudy_NET.Services.Classes;
 using ProStudy_NET.Component.Security.Services;
-using Microsoft.Data.SqlClient;
 
 
 DotNetEnv.Env.Load();
@@ -29,69 +22,27 @@ if (databaseType.Equals("MySQL"))
         builder.Configuration.GetConnectionString("DefaultConnection"),
          ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))),
          ServiceLifetime.Scoped);
-
-    try
-    {
-        using var connection = new MySqlConnection(builder.Configuration.GetConnectionString("DefaultConnection"));
-        connection.Open();
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"MySQL Connection Error: {ex.Message}");
-    }
 }
 else if (databaseType.Equals("MSSQL"))
 {
     builder.Services.AddDbContext<ProStudyDB>(options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")),
         ServiceLifetime.Scoped);
-
-    try
-    {
-        using var connection = new SqlConnection(builder.Configuration.GetConnectionString("DefaultConnection"));
-        connection.Open();
-    }
-    catch (Exception ex)
-    {
-        Console.WriteLine($"MSSQL Connection Error: {ex.Message}");
-    }
 }
 else
 {
     Console.WriteLine("Invalid database type specified in appsettings.json");
 }
 
-//User
-builder.Services.AddScoped<iUserServices, UserService>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-
-//Video
-builder.Services.AddScoped<IVideoService, VideoService>();
-builder.Services.AddScoped<IVideoRepository, VideoRepository>();
-
-//Category
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
-
-//Question
-builder.Services.AddScoped<IQuestionService, QuestionService>();
-builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
-
-//Answer
-builder.Services.AddScoped<IAnswerService, AnswerService>();
-builder.Services.AddScoped<IAnswerRepository, AnswerRepository>();
-
-//Project
-builder.Services.AddScoped<IProjectService, ProjectService>();
-builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
-
-//Role
-builder.Services.AddScoped<IRoleService, RoleService>();
-builder.Services.AddScoped<IRoleRepository, RoleRepository>();
-
-//Test
-builder.Services.AddScoped<ITestService, TestService>();
-builder.Services.AddScoped<ITestRepository, TestRepository>();
+builder.Services.Scan(scan => scan
+    .FromAssemblyOf<Program>()
+    .AddClasses(classes => classes.Where(r => r.Name.EndsWith("Repository")))
+        .AsImplementedInterfaces()
+        .WithScopedLifetime()
+    .AddClasses(classes => classes.Where(s => s.Name.EndsWith("Service")))
+        .AsImplementedInterfaces()
+        .WithScopedLifetime()
+);
 
 builder.Services.AddScoped<UnitWork>();
 
@@ -126,8 +77,6 @@ builder.Services.AddSwaggerGen(c => {
 
     c.EnableAnnotations();
 });
-
-
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
