@@ -18,7 +18,7 @@ namespace ProStudy_NET.Controllers
             this.categoryService = categoryService;
         }
         
-        [HttpGet("/list/videos")]
+        [HttpGet("list/videos")]
         [AllowAnonymous]
         [SwaggerOperation(
             Summary = "Returns all videos grouped by category.",
@@ -36,7 +36,7 @@ namespace ProStudy_NET.Controllers
             }
         }
 
-        [HttpGet("/list/tests")]
+        [HttpGet("list/tests")]
         [AllowAnonymous]
         [SwaggerOperation(
             Summary = "Returns all tests grouped by category.",
@@ -54,7 +54,7 @@ namespace ProStudy_NET.Controllers
             }
         }
 
-        [HttpGet("/list")]
+        [HttpGet("list")]
         [AllowAnonymous]
         [SwaggerOperation(
             Summary = "Returns all categories without related entities.",
@@ -73,7 +73,7 @@ namespace ProStudy_NET.Controllers
     
         }
 
-        [HttpGet("/list/videos/{categoryName}")]
+        [HttpGet("list/videos/{categoryName}")]
         [AllowAnonymous]
         [SwaggerOperation(
             Summary = "Returns a category with all its associated videos.",
@@ -91,7 +91,7 @@ namespace ProStudy_NET.Controllers
             }
         }
 
-        [HttpGet("/list/tests/{categoryName}")]
+        [HttpGet("list/tests/{categoryName}")]
         [AllowAnonymous]
         [SwaggerOperation(
             Summary = "Returns a category with all its associated tests.",
@@ -109,7 +109,7 @@ namespace ProStudy_NET.Controllers
             }
         }
 
-        [HttpPost("/create")]
+        [HttpPost("create")]
         [Authorize(Roles ="CO3")]
         [SwaggerOperation(
             Summary = "Create a category.",
@@ -127,7 +127,7 @@ namespace ProStudy_NET.Controllers
             }
         }
 
-        [HttpDelete("/delete")]
+        [HttpDelete("delete")]
         [Authorize(Roles = "CO3")]
         [SwaggerOperation(
             Summary = "Delete a category.",
