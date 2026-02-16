@@ -24,12 +24,12 @@ namespace ProStudy_NET.Repository.Classes
 
         public IQueryable<Category> findTestByCategory(string categoryName)
         {
-            return dbSet.Include(c => c.SkillTestList).Where(c => c.Equals(categoryName));
+            return dbSet.Include(c => c.SkillTestList).Where(c => c.CategoryName.Equals(categoryName));
         }
 
         public IQueryable<Category> findVideosByCategory(string categoryName)
         {
-            return dbSet.Include(c => c.VideoList).Where(c => c.Equals(categoryName));
+            return dbSet.Include(c => c.VideoList).Where(c => c.CategoryName.Equals(categoryName));
         }
     }
 }

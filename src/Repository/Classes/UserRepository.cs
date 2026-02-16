@@ -20,12 +20,11 @@ namespace ProStudy_NET.Repository.Classes
         public User? GetByEmail(string email)
         {
             return dbSet.Include(u => u.UserRoles)
-                            .Include(u => u.UserRoles)
                             .ThenInclude(r => r.Role)
                             .Include(u => u.SkillTests)
                             .Include(u => u.UserProjects)
                             .AsSplitQuery()
-                            .Where(u => u.Email != null && u.Email.Equals(email)).FirstOrDefault();
+                            .Where(u => u.Email == email).FirstOrDefault();
         }
 
         /// <summary>
@@ -41,7 +40,7 @@ namespace ProStudy_NET.Repository.Classes
                             .Include(u => u.SkillTests)
                             .Include(u => u.UserProjects)
                             .AsSplitQuery()
-                            .Where(u => u.UserName != null && u.UserName.Equals(username)).FirstOrDefault();
+                            .Where(u => u.UserName == username).FirstOrDefault();
         }
     }
 }

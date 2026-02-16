@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Linq.Expressions;
 using ProStudy_NET.Component.DB.Unity;
 using ProStudy_NET.Component.Exceptions.Models;
 using ProStudy_NET.Component.Security.Services;
@@ -58,16 +57,20 @@ namespace ProStudy_NET.Services
 
         public LoadUserDTO GetById(long id)
         {
-           User? userInfo = unitWork.Users.FindById(new { id },
-            (Expression<Func<User, object>>)(u => u.SkillTests),
-            (Expression<Func<User, object>>)(u => u.UserProjects));
+           User? userInfo = unitWork.Users.FindById(id);
            
            if (userInfo == null)
             {
                 throw new ArgumentNullException(nameof(userInfo), "User not found");
             }
 
-           return new LoadUserDTO{UserName = userInfo.UserName, Email = userInfo.Email};
+           return new LoadUserDTO{
+            UserName = userInfo.UserName,
+            Email = userInfo.Email,
+            Id = userInfo.Id,
+            Projects = userInfo.UserProjects.Select(p => new ProjectMinViewDTO{projectName = p.ProjectName}).ToList(),
+            Skills = userInfo.SkillTests.Select(s => new TestInfoDTO{ Id = s.TestId, Name = s.TestTitle }).ToList(),
+            };
         }
 
         public LoadUserDTO GetByUserName(string username)

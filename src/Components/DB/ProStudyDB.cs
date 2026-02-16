@@ -46,12 +46,12 @@ namespace ProStudy_NET.Component.DB
                 .WithMany(u => u.SkillTests)
                 .UsingEntity<Dictionary<string, object>>(
                     "user_skilltest",
-                    j => j
+                    u => u
                         .HasOne<User>()
                         .WithMany()
                         .HasForeignKey("userid")
                         .HasConstraintName("FK_user_skilltest_userid"),
-                    j => j
+                    st => st
                         .HasOne<SkillTest>()
                         .WithMany()
                         .HasForeignKey("skilltestid")
@@ -65,24 +65,25 @@ namespace ProStudy_NET.Component.DB
 
             modelBuilder.Entity<Category>()
                 .HasMany(c => c.ProjectList)
-                .WithMany(p => p.Tools)
+                .WithMany(t => t.Tools)
                 .UsingEntity(j => j.ToTable("ProjectTools"));
 
             modelBuilder.Entity<Project>()
                 .HasMany(p => p.ProjectsUser)
-                .WithMany(u => u.UserProjects)
+                .WithMany(up => up.UserProjects)
                 .UsingEntity<Dictionary<string, object>>("user_project", 
-                    j => j.HasOne<User>()
+                    u => u.HasOne<User>()
                     .WithMany()
                     .HasForeignKey("userid")
                     .HasConstraintName("FK_user_project_userid"),
-                    j => j.HasOne<Project>()
+                    p => p.HasOne<Project>()
                     .WithMany()
                     .HasForeignKey("projectid")
                     .HasConstraintName("FK_user_project_projectid")
                     );
 
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+            modelBuilder.Entity<User>().HasIndex(u => u.UserName).IsUnique();
         }
     }
 }

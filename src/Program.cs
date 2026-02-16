@@ -1,11 +1,11 @@
 ﻿using ProStudy_NET.Component.DB;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using ProStudy_NET.Component.DB.Unity;
 using ProStudy_NET.Component.Security.Services;
+using Microsoft.OpenApi;
 
 
 DotNetEnv.Env.Load();
@@ -16,14 +16,7 @@ builder.Services.AddControllers();
 builder.Configuration.AddEnvironmentVariables();
 string databaseType = builder.Configuration.GetValue<string>("DatabaseSettings:DatabaseType")!;
 
-if (databaseType.Equals("MySQL"))
-{
-    builder.Services.AddDbContext<ProStudyDB>(options => options.UseMySql(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))),
-         ServiceLifetime.Scoped);
-}
-else if (databaseType.Equals("MSSQL"))
+if (databaseType.Equals("MSSQL"))
 {
     builder.Services.AddDbContext<ProStudyDB>(options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")),
@@ -52,28 +45,22 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c => {
     c.SwaggerDoc("v1", new OpenApiInfo{
-        Title = "ProStudy-NET API",
-        Description = "API for leaning technology skills",
-        Version = "1.0.0"
-    });
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme{
-        Type         = SecuritySchemeType.Http,
-        Scheme       = "bearer",
-        BearerFormat = "JWT",
-        Description  = "Enter JWT token in the format: Bearer {token}"
+        Title = "ProStudy API",
+        Description = "An API designed to manage study skills and abilities for the tech world.",
+        Version = "1.0.1"
     });
 
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement{
-        {
-            new OpenApiSecurityScheme{
-                Reference = new OpenApiReference{
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            new string[]{}
-        }
-    });
+    var securityScheme = new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "JWT Authorization header using Bearer scheme"
+    };
+
+    c.AddSecurityDefinition("Bearer", securityScheme);
 
     c.EnableAnnotations();
 });
