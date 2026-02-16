@@ -20,7 +20,7 @@ namespace ProStudy_NET.Controllers
             this.videoService = videoService;
         }
 
-        [HttpGet("/find/{videoId}")]
+        [HttpGet("find/{videoId}")]
         [AllowAnonymous]
         [SwaggerOperation]
         [SwaggerResponse(200, "Video info by given id.", typeof(VideoMinDTO))]
@@ -38,7 +38,7 @@ namespace ProStudy_NET.Controllers
             }
         }
 
-        [HttpGet("/find/name={videoName}")]
+        [HttpGet("find/name={videoName}")]
         public ActionResult<VideoInfoDTO> FindByVideoName(string videoName)
         {
             try

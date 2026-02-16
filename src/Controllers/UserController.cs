@@ -21,7 +21,7 @@ public class UserController: ControllerBase{
     /// </summary>
     /// <param name="username">The username used to perform the search</param>
     /// <returns>User Info</returns>
-    [HttpGet("/load/username={username}")]
+    [HttpGet("load/username={username}")]
     [AllowAnonymous]
     [SwaggerOperation(
         Summary = "Get User by username",
@@ -49,7 +49,7 @@ public class UserController: ControllerBase{
     /// <returns> User info </returns>
     /// <response code="200"> Returns the User info </response>
     /// <response code="404"> If User is not found </response>
-    [HttpGet("/load/id={id}")]
+    [HttpGet("load/id={id}")]
     [SwaggerOperation(
         Summary = "Get User by id",
         Description = "Returns the User info by id informed"
@@ -87,7 +87,7 @@ public class UserController: ControllerBase{
         }
     }
 
-    [HttpPost("/login")]
+    [HttpPost("login")]
     [AllowAnonymous]
     [SwaggerOperation(
         Summary = "Login",
