@@ -99,6 +99,16 @@ if(app.Environment.IsDevelopment()){
 
 app.MapGet("/", () => "API running");
 
+app.MapGet("/conn", (IConfiguration config) =>
+{
+    return Results.Ok(new
+    {
+        ConnString = config.GetConnectionString("DefaultConnection"),
+        Env = Environment.GetEnvironmentVariable("ConnectionStrings__DefaultConnection")
+    });
+});
+
+
 app.UseAuthentication();
 app.UseAuthorization();
 
