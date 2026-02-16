@@ -1,0 +1,32 @@
+version: "3.9"
+
+services:
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"     # AMQP
+      - "15672:15672"   # Web UI
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  prostudy-api:
+    build: .
+    container_name: prostudy-api
+    depends_on:
+      - rabbitmq
+    ports:
+      - "5000:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      RabbitMQ__Host: rabbitmq
+      RabbitMQ__User: admin
+      RabbitMQ__Password: admin
+
+volumes:
+  rabbitmq_data:

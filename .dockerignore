@@ -1,0 +1,97 @@
+# ===============================
+# BUILD OUTPUT
+# ===============================
+
+bin/
+obj/
+out/
+publish/
+
+# ===============================
+# TESTS OUTPUT
+# ===============================
+
+TestResults/
+coverage/
+*.coverage
+*.trx
+
+# ===============================
+# USER-SPECIFIC FILES
+# ===============================
+
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ===============================
+# IDE / EDITOR
+# ===============================
+
+.vs/
+.vscode/
+.idea/
+
+# ===============================
+# NODE (se existir frontend)
+# ===============================
+
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# ===============================
+# GIT
+# ===============================
+
+.git/
+.gitignore
+.gitattributes
+
+# ===============================
+# DOCKER FILES (opcional)
+# ===============================
+
+docker-compose*
+Dockerfile*
+
+# ⚠️ NÃO ignore o Dockerfile se o build usar COPY .
+# Remova as linhas acima se necessário.
+
+# ===============================
+# LOGS
+# ===============================
+
+*.log
+
+# ===============================
+# OS FILES
+# ===============================
+
+.DS_Store
+Thumbs.db
+
+# ===============================
+# ENV / SECRETS
+# ===============================
+
+.env
+.env.*
+secrets.json
+appsettings.Development.json
+
+# ===============================
+# TEMP FILES
+# ===============================
+
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# ===============================
+# TEST PROJECTS (opcional)
+# ===============================
+
+tests/
