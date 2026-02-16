@@ -97,6 +97,8 @@ if(app.Environment.IsDevelopment()){
     });
 }
 
+app.MapGet("/", () => "API running");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
